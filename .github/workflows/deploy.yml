@@ -28,4 +28,8 @@ jobs:
         run: echo "KUBECONFIG=/etc/kubernetes/admin.conf" >> $GITHUB_ENV
 
       - name: Deploy to Kubernetes
-        run: kubectl apply -f k8s/
+        run: |
+          kubectl set image deployment/frontend-demo \
+          frontend=aurait/frontend-demo:latest
+          kubectl rollout status deployment/frontend-demo
+
